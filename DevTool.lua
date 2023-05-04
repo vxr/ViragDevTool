@@ -37,14 +37,14 @@ DevTool.list = {}
 function DevTool:OnInitialize()
 
 	self.db = LibStub("AceDB-3.0"):New("DevToolDatabase", self.DatabaseDefaults)
-	
+
 end
 
 --- Called during the PLAYER_LOGIN event when most of the data provided by the game is already present.
---- We perform more startup tasks here, such as registering events, hooking functions, creating frames, or getting 
+--- We perform more startup tasks here, such as registering events, hooking functions, creating frames, or getting
 --- information from the game that wasn't yet available during :OnInitialize()
 function DevTool:OnEnable()
-	
+
 	self:CreateChatCommands()
 
 	self.MainWindow = CreateFrame("Frame", "DevToolFrame", UIParent, "DevToolMainFrame")
@@ -76,6 +76,11 @@ function DevTool:OnEnable()
 			self:ExecuteCMD(message, true)
 		end
 	end
+
+    -- add a global shortcut
+    _G["VDT"] = function(...)
+        DevTool:AddData(...)
+    end
 
 	self:RegisterChatCommand("dev", chatFunction)
 	self:RegisterChatCommand("devtool", chatFunction)
